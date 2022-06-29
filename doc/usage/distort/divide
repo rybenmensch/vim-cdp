@@ -1,0 +1,11 @@
+USAGE:
+distort divide infile outfile N [-i]
+
+DISTORTION BY DIVIDING 'WAVECYCLE' FREQUENCY.
+
+N = divider (integer only: range 2-16)
+-i uses waveform interpolation: slower, but cleaner.
+
+Works on MONO files only
+
+

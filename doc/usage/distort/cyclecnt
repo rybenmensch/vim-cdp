@@ -1,0 +1,8 @@
+USAGE:
+distort cyclecnt infile
+
+COUNT 'WAVECYCLES' IN SNDFILE.
+
+Works on MONO files only
+
+

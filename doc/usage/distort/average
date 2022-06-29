@@ -1,0 +1,10 @@
+USAGE:
+distort average infile outfile cyclecnt [-mmaxwavelen] [-sskipcycles]
+
+AVERAGE THE WAVESHAPE OVER N 'WAVECYCLES'
+
+CYCLECNT   is number of cycles to average over ( > 1)
+MAXWAVELEN is max permissible wavelength in seconds. (default 0.50)
+SKIPCYCLES: (integer) is no. of wavecycles to skip at start of file
+
+

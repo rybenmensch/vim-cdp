@@ -1,0 +1,10 @@
+USAGE:
+distort omit infile outfile A B
+
+OMIT A OUT OF EVERY B 'WAVECYCLES' REPLACING THEM BY SILENCE
+
+A may vary over time: but must always be less than B.
+
+Works on MONO files only
+
+

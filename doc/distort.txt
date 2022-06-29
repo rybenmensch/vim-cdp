@@ -1,0 +1,34 @@
+*distort* Distortion based on wavesets (pseudo_wavecycles)
+===========================================================================
+CONTENTS                                                  *distort_contents*
+ 1.Overview........ |distort_overview|
+ 2.Usage........... |distort_usage|
+ 3.Operations...... |distort_single|, |distort_two|
+ 4.Channels........ |distort_chans|
+
+===========================================================================
+OVERVIEW                                                  *distort_overview*
+The DISTORT functions are variants of the grain concept, but the
+segments are pseudo-wavecycles called wavesets, found in zero-crossings.
+The wavesets are processed by repetition, omission, replacing waveforms,
+adding "harmonics", and so on. Cycles can be processed singly or in groups.
+Many processes do produce distortion with small groups of cycles, because
+of rapid and uneven changes of waveform, but larger groups produce smoother
+and often unpredictable results.
+
+DISTORT OPERATIONS ON A SINGLE SOUND FILE                   *distort_single*
+|average|   |divide|    |fractal|      |multiply|  |repeat|    |replim|
+|reverse|
+|cyclecnt|  |envel|     |harmonic|     |omit|      |replace|   |shuffle|
+|delete|    |filter|    |interpolate|  |pitch|     |reform|    |telescope|
+|overload|  |pulsed|    |repeat2|
+
+DISTORT OPERATIONS ON TWO SOUND FILES                          *distort_two*
+|interact|
+
+CHANNELS                                                     *distort_chans*
+Distort processes work ONLY on mono files.
+
+
+
+ vim:tw=80:et:ft=help:norl:

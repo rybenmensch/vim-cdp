@@ -1,0 +1,11 @@
+USAGE:
+distort multiply infile outfile N [-s]
+
+DISTORTION BY MULTIPLYING 'WAVECYCLE' FREQUENCY.
+
+N = multiplier (integer only: range 2-16)
+-s smoothing: try if glitches appear.
+
+Works on MONO files only
+
+

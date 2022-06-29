@@ -1,0 +1,93 @@
+#!/usr/local/bin/python3
+import sys
+import os
+import re
+# https://stackoverflow.com/questions/4703390/how-to-extract-a-floating-number-from-a-string
+numeric_const_pattern = '[-+]? (?: (?: \d* \. \d+ ) | (?: \d+ \.? ) )(?: [Ee] [+-]? \d+ ) ?'
+rx = re.compile(numeric_const_pattern, re.VERBOSE)
+
+#########
+#https://stackoverflow.com/questions/241327/remove-c-and-c-comments-using-python
+def comment_remover(text):
+    def replacer(match):
+        s = match.group(0)
+        if s.startswith('/'):
+            return " " # note: a space and not an empty string
+        else:
+            return s
+    pattern = re.compile(
+        r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
+        re.DOTALL | re.MULTILINE
+    )
+    return re.sub(pattern, replacer, text)
+#########
+
+argc = len(sys.argv)
+if(argc<2):
+    print("no input file specified")
+    exit()
+
+with open(sys.argv[1], 'r') as file:
+    data = file.read()
+
+data = comment_remover(data)
+data = data.replace("\n\n", "")
+
+linearr = []
+filenames = []
+filecontent = []
+fncount = 1
+
+start = data.find('{')
+if start==-1:
+    linearr = data.split('\n')
+else:
+    linearr += data[:start].split('\n')
+    end = data.find('}')
+    fc = data[start+1:end-1]
+    fc = re.sub(r'[ \t]+', r' ', fc).split('\n')
+    fc = [[float(i) for i in rx.findall(l)] for l in fc if l!='']
+    filecontent.append(fc)
+
+    fname = f"brk{fncount}.txt"
+    linearr.append(fname)
+    filenames.append(fname)
+    fncount += 1
+
+    data = data[end+1:]
+    print(data)
+
+# substitute in file names
+for i in range(len(linearr)):
+    linearr[i] = re.sub(r'\$(.*)', r'\1.wav', linearr[i])
+    linearr[i] = re.sub(r'\?(.*)', r'\1.ana', linearr[i]);
+    linearr[i] = re.sub(r'\!(.*)', r'\1.txt', linearr[i]);
+
+    deletefile = re.compile(r'out\..*').search(linearr[i])
+    if deletefile:
+        os.system("rm " + deletefile.group() + " 2>/dev/null")
+
+# check for files to overwrite
+deletefiles = []
+
+# filter out empty lines
+linearr = [l for l in linearr if l!='' and l!=' ']
+print(filecontent)
+print(filenames)
+print(linearr)
+
+# write our arrays to files
+for i in range(len(filenames)):
+    with open(filenames[i], 'w') as brk:
+        for e in filecontent[i]:
+            brk.write(" ".join(str(item) for item in e)+'\n')
+
+# execute the cdp command
+command = " ".join(linearr)
+os.system(command)
+
+# remove our files again
+if len(filenames)>1:
+    exit()
+for name in filenames:
+    os.system("rm "+name)

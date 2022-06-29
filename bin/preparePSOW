@@ -1,0 +1,10 @@
+#!/bin/bash
+copysfx $1 infile.wav
+pvoc anal 1 infile.wav infile.ana
+repitch getpitch 1 infile.ana infilepchdummy.wav infile.frq
+ptobrk withzeros infile.frq infile.txt 20
+mv infile.txt $1.txt
+rm infile.wav
+rm infile.ana
+rm infilepchdummy.wav
+rm infile.frq
